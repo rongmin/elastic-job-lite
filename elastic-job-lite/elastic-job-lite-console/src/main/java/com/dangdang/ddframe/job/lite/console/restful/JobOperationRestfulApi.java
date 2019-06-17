@@ -17,11 +17,9 @@
 
 package com.dangdang.ddframe.job.lite.console.restful;
 
-import com.dangdang.ddframe.job.lite.console.service.JobAPIService;
-import com.dangdang.ddframe.job.lite.console.service.impl.JobAPIServiceImpl;
-import com.dangdang.ddframe.job.lite.lifecycle.domain.ShardingInfo;
-import com.dangdang.ddframe.job.lite.lifecycle.domain.JobBriefInfo;
-import com.google.common.base.Optional;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -30,8 +28,16 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.Collection;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.dangdang.ddframe.job.lite.console.service.JobAPIService;
+import com.dangdang.ddframe.job.lite.console.service.impl.JobAPIServiceImpl;
+import com.dangdang.ddframe.job.lite.lifecycle.domain.JobBriefInfo;
+import com.dangdang.ddframe.job.lite.lifecycle.domain.ShardingInfo;
+import com.google.common.base.Optional;
 
 /**
  * 作业维度操作的RESTful API.
@@ -63,6 +69,22 @@ public final class JobOperationRestfulApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<JobBriefInfo> getAllJobsBriefInfo() {
         return jobAPIService.getJobStatisticsAPI().getAllJobsBriefInfo();
+    }
+    
+    /**
+     * 获取作业详情.
+     * 
+     * @return 作业详情集合
+     */
+    @GET
+    @Path("/specifiedJobs")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<JobBriefInfo> getSpecifiedNameJobsBriefInfo(@QueryParam("search") final String specifiedName) {
+    	if (StringUtils.isEmpty(specifiedName)) {
+    		List<JobBriefInfo> emptyList = new ArrayList<JobBriefInfo>();
+			return emptyList;
+		}
+        return jobAPIService.getJobStatisticsAPI().getSpecifiedNameJobsBriefInfo(specifiedName);
     }
     
     /**

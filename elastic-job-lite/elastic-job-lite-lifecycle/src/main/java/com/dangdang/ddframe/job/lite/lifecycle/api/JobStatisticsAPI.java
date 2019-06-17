@@ -43,6 +43,13 @@ public interface JobStatisticsAPI {
     Collection<JobBriefInfo> getAllJobsBriefInfo();
     
     /**
+     * 获取指定作业名称（支持模糊匹配）的作用简明信息.
+     *
+     * @return 作业简明信息集合.
+     */
+    Collection<JobBriefInfo> getSpecifiedNameJobsBriefInfo(String specifiedName);
+    
+    /**
      * 获取作业简明信息.
      *
      * @param jobName 作业名称

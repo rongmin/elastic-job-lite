@@ -62,6 +62,33 @@ public final class JobStatisticsAPIImpl implements JobStatisticsAPI {
         return result;
     }
     
+    /**
+     * add by chenrm 2019年6月14日, 下午10:17:45 获取指定作业名称（支持模糊匹配）的作用简明信息.
+     * @param specifiedName
+     * @return
+     */
+    @Override
+	public Collection<JobBriefInfo> getSpecifiedNameJobsBriefInfo(String specifiedName) {
+    	List<String> allJobNames = regCenter.getChildrenKeys("/");
+    	
+    	List<String> jobNames = new ArrayList<String>();
+    	for (String nodeName : allJobNames) {
+			if (nodeName.contains(specifiedName)) {
+				jobNames.add(nodeName);
+			}
+		}
+    	
+        List<JobBriefInfo> result = new ArrayList<>(jobNames.size());
+        for (String each : jobNames) {
+            JobBriefInfo jobBriefInfo = getJobBriefInfo(each);
+            if (null != jobBriefInfo) {
+                result.add(jobBriefInfo);
+            }
+        }
+        Collections.sort(result);
+        return result;
+	}
+    
     @Override
     public JobBriefInfo getJobBriefInfo(final String jobName) {
         JobNodePath jobNodePath = new JobNodePath(jobName);

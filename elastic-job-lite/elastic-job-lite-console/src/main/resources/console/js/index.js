@@ -9,6 +9,9 @@ $(function() {
     $("#job-status").click(function() {
         $("#content").load("html/status/job/jobs_status_overview.html");
     });
+    $("#job-status-specified").click(function() {
+        $("#content").load("html/status/job/jobs_status_overview2.html");
+    });
     $("#server-status").click(function() {
         $("#content").load("html/status/server/servers_status_overview.html");
     });
