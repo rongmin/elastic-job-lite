@@ -134,4 +134,13 @@ public final class SchedulerFacade {
         }
         JobRegistry.getInstance().shutdown(jobName);
     }
+    
+    /**
+     * add by chenrm 2019年6月19日, 下午10:01:51
+     * 获取作业调度信息
+     * .
+     */
+    public LiteJobConfiguration getJobConfiguration() {
+    	return configService.load(false);
+    }
 }
