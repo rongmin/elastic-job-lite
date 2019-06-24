@@ -7,6 +7,7 @@
     </parent>
     <artifactId>elastic-job-lite-core</artifactId>
     <name>${project.artifactId}</name>
+    <version>2.1.5.1</version>
     
     <dependencies>
         <dependency>
